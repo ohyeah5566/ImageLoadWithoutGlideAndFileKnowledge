@@ -59,14 +59,14 @@ class MainActivity : AppCompatActivity() {
 //      讀取在app scope internal的檔案 不需要權限
         binding.loadImageInternal.setOnClickListener {
             val fileName = "internalImg.jpg"
+            val file = File(filesDir, fileName)
+            if (!file.exists()) return@setOnClickListener
             //closeable.use
             openFileInput(fileName).use {
                 Glide.with(this@MainActivity)
                     .load(it.readBytes())
                     .into(binding.imageView)
             }
-//          另一個取得internal file的方法
-//          val file = File(filesDir,fileName)
         }
 //      讀取App scope external 不需要權限
         binding.loadImageExternal.setOnClickListener {
